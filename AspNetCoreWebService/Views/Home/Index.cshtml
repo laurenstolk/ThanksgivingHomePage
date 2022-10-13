@@ -1,0 +1,146 @@
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body, html {
+    margin: 0;
+    background: #2b2927 !important;
+}
+
+    h1 {
+        text-align: center;
+        color: white;
+        font-family: 'Great Vibes', cursive;
+        font-size: 65px;
+    }
+    h2{
+        font-size: 45px;
+    }
+
+.container-all {
+    width: fit-content;
+    margin: 20px auto;
+    height: auto;
+}
+
+.container {
+    width: calc(33% - 6px);
+    overflow: hidden;
+    height: fit-content;
+    margin: 3px;
+    padding: 0;
+    display: block;
+    position: relative;
+    float: left;
+}
+
+img {
+    width: 100%;
+    transition-duration: .3s;
+    max-width: 100%;
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.title {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    top: 35%;
+    display: none;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 1.6em;
+    text-shadow: 1px 5px 10px black;
+    transition-duration: .3s;
+    font-family: 'Great Vibes', cursive;
+    color: var(--tg-orange) !important;
+    font-size: 40px;
+}
+
+.text {
+    position: absolute;
+    top: 70%;
+    cursor: pointer;
+    max-width: 80%;
+    text-align: center;
+    left: 50%;
+    text-shadow: 1px 5px 10px black;
+    font-size: 1em;
+    display: none;
+    margin-right: -50%;
+    transition-duration: .3s;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+.container:hover img {
+    transform: scale(1.2);
+    transition-duration: .3s;
+    filter: grayscale(50%);
+    opacity: .7;
+}
+
+.container:hover span {
+    color: white;
+    display: block;
+    transition-duration: .3s;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<h1 class="my-3">Thanksgiving Menu</h1>
+
+<form method="post" asp-controller="Home" asp-action="Index" class="d-flex justify-content-center align-items-center">
+    <span class="mr-3 text-white">Filter Results: </span>
+    <select class="form-control w-auto mr-3" name="filterselect">
+        @if (ViewBag.Selected != null)
+        {
+                <option hidden value="@ViewBag.Selected">@(char.ToUpper(ViewBag.Selected[0]) + ViewBag.Selected.Substring(1)) </option>
+            }
+        <option value="all">All</option>
+        <option value="protein">Protein</option>
+        <option value="condiment">Condiment</option>
+        <option value="appetizer">Appetizer</option>
+        <option value="side">Side</option>
+        <option value="drink">Drink</option>
+        <option value="dessert">Dessert</option>
+    </select>
+    <button type="submit" class="btn btn-primary" name="submit" formmethod="post">Filter</button>
+</form>
+<div class="container-all">
+    @foreach (var food in ViewBag.FoodList) 
+    {
+    <div class="container">
+        <img src="@food.image" alt="image of @food.foodname" height="225">
+        <span class="title">@food.foodname</span>
+        @if (food.protein)
+        {
+            <span class="text">Protein</span>
+        }
+        else if (food.side)
+        {
+            <span class="text">Side</span>
+        }
+        else if (food.condiment)
+        {
+            <span class="text">Condiment</span>
+        }
+        else if (food.dessert)
+        {
+            <span class="text">Dessert</span>
+        }
+        else if (food.drink)
+        {
+            <span class="text">Drink</span>
+        }
+        else if (food.appetizer)
+        {
+            <span class="text">Appetizer</span>
+        }
+    </div>
+    }
+</div>
