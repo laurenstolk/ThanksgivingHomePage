@@ -1,0 +1,23 @@
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+:root{
+    --main-bg-color: #FDF2D8;
+    --tg-brown: #5D4012;
+    --tg-red: #A62C17;
+    --tg-orange: #D55E3A;
+    --tg-yellow: #E8B145;
+}
+
+@media only screen and (max-width: 900px) {
+    .container {
+        width: calc(50% - 6px);
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .container {
+        width: 100%;
+    }
+}
+
+
